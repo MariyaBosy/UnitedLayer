@@ -52,7 +52,10 @@ def addRoomToHotel(hotel):
 def displayAll(budget=None):
     output = ""
     available = False
+    room_checker = 0
     for id, hotel in Hotels.items():
+        if len(hotel.rooms):
+            room_checker=1
         room_output = ""
         roomAvailableInHotel = False
         if not budget:
@@ -71,7 +74,9 @@ def displayAll(budget=None):
         if roomAvailableInHotel == True:
             output += ("\n*Hotel {0} id {1}*\n".format(hotel.hotel_name,
                                                        id)) + room_output
-
+    if room_checker == 0:
+        print("-"*50)
+        print("No Rooms are added yet")   
     if budget != None:
         if available == False:
             print("Sorry, No Rooms available under ${}..".format(budget))
@@ -108,6 +113,10 @@ def main():
                 addRoomToHotel(hotel)
 
         elif opt_no == '2':
+            if len(Hotels) == 0:
+                print("-"*50)
+                print("No hotels added,Add hotel first")
+                continue
             print("Select hotel- ")
             hotel_ids = list(Hotels.keys())
             print("*"*20)
